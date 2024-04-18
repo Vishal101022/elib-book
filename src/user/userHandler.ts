@@ -40,13 +40,38 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = sign({ id: newUser._id }, process.env.JWT_SECRET as string, {
       expiresIn: "7d",
     });
-    
+
     res.status(201).json({ accessToken: token });
-  } catch (error:any) {
+  } catch (error: any) {
     return next(
       createHttpError(500, "Failed to create user: " + error.message)
     );
   }
 };
 
-export { createUser };
+// login user with ther email and password
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      const error = createHttpError(400, "User not found");
+      return next(error);
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      const error = createHttpError(401, "Invalid credentials");
+      return next(error);
+    }
+    // Generate JWT token
+    const token = sign({ id: user._id }, process.env.JWT_SECRET as string, {
+      expiresIn: "7d",
+    });
+
+    res.status(201).json({ accessToken: token });
+  } catch (error: any) {
+    return next(createHttpError(500, "Failed to login user: " + error.message));
+  }
+};
+export { createUser, loginUser };
