@@ -5,13 +5,6 @@ import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 require("dotenv").config();
 
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-}
-
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
