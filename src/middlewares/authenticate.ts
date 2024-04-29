@@ -17,8 +17,8 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
       id: string;
     };
     const _req = req as AuthRequest;
-    _req.userId = decoded.id; 
-    
+    _req.userId = decoded.id;
+
     next();
   } catch (err) {
     console.error("Token Verification Error:", err);
