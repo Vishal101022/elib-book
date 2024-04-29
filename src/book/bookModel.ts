@@ -3,6 +3,7 @@ interface Book {
   _id: string;
   title: string;
   author: string;
+  publiction_year: number;
   genre: string;
   description: string;
   image: string;
@@ -13,6 +14,7 @@ const bookSchema = new mongoose.Schema<Book>(
   {
     title: { type: String, required: true },
     author: { type: String, required: true },
+    publiction_year: { type: Number, required: true },
     genre: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String, required: true },
