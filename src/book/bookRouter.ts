@@ -1,23 +1,21 @@
 import express from "express";
-import { createBook } from "./bookHandler";
-import multer from "multer";
-import path from "path";
+import { createBook, updateBook, allBooks, oneBook, deleteBook, filterBook } from "./bookHandler";
+import authenticate from "../middlewares/authenticate";
 
 const bookRouter = express.Router();
-const upload = multer({
-  dest: path.resolve(__dirname, "../../public/data/uploads"),
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 100mb
-  },
-});
-// routes
-bookRouter.post(
-  "/",
-  upload.fields([
-    { name: "image", maxCount: 1 },
-    { name: "url", maxCount: 1 },
-  ]),
-  createBook
-);
+
+// create book route
+bookRouter.post("/", authenticate, createBook);
+// update book route
+bookRouter.put("/:id", authenticate, updateBook);
+// fetch specific book route
+bookRouter.get("/:id", oneBook);
+// delete book route
+bookRouter.delete("/:id", authenticate, deleteBook);
+// filter book route
+bookRouter.get("/search/filter", filterBook);
+// all book route
+bookRouter.get("/allbook", allBooks);
+
 
 export default bookRouter;
