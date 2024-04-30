@@ -87,7 +87,7 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 // fetch all books
-// https://localhost:3000/api/books/allbooks
+// https://localhost:3000/api/books/allbook
 
 const allBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -148,7 +148,11 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
 // https://localhost:3000/api/books/search/filter
 const filterBook = async (req: Request, res: Response, next: NextFunction) => {
   const { author, publication_year } = req.body;
-  console.log(author, publication_year);
+
+  if (!author || !publication_year) {
+    const error = createHttpError(400, "Please provide at least one filter");
+    return next(error);
+  }
   try {
     const books = await bookModel.find({
       $or: [
