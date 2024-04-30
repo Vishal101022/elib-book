@@ -9,7 +9,7 @@ bookRouter.post("/", authenticate, createBook);
 // update book route
 bookRouter.put("/:id", authenticate, updateBook);
 // fetch specific book route
-bookRouter.get("/:id", oneBook);
+bookRouter.get("/book/:id", oneBook);
 // delete book route
 bookRouter.delete("/:id", authenticate, deleteBook);
 // filter book route
