@@ -156,9 +156,9 @@ API requires authentication using token. Include the token in the headers of our
    **example response**
    ```json
    {
-   "\_id": "662fd8bedef628e1177**\***",
+   "_id": "662fd8bedef628e1177*****",
    "title": "The Catcher in the Rye",
-   "author": "662f6cb65c68cc7dde7**\***",
+   "author": "662f6cb65c68cc7dde7*****",
    "author_name": "vishal",
    "publication_year": 1951,
    "genre": "Fiction",
@@ -253,3 +253,37 @@ The API returns standard HTTP status codes to indicate the success or failure of
 - `401 Unauthorized`: Authentication credentials were missing or invalid.
 - `404 Not Found`: The requested resource was not found.
 - `500 Internal Server Error`: An error occurred on the server.
+
+## :hammer_and_wrench: how to run
+### Prerequisites
+
+**Node version 18.x.x**
+
+### Cloning the repository
+
+```shell
+git clone https://github.com/Vishal101022/elib-book.git
+```
+
+### Install packages
+
+```shell
+npm i
+```
+
+### Setup .env file
+
+Create a .env file and add the following variables:
+
+```bash
+PORT=3000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.qbe02tw.mongodb.net/<database>
+NODE_ENV=development
+JWT_SECRET=<secret>
+```
+
+### Start the app
+
+```shell
+npm run dev
+```
