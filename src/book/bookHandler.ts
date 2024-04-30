@@ -149,7 +149,7 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
 const filterBook = async (req: Request, res: Response, next: NextFunction) => {
   const { author, publication_year } = req.body;
 
-  if (!author || !publication_year) {
+  if (!author && !publication_year) {
     const error = createHttpError(400, "Please provide at least one filter");
     return next(error);
   }
